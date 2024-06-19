@@ -1,0 +1,11 @@
+// * C/C++ 컴파일 방법
+//     그냥 나중에 다시 찾아
+
+// * 빌드
+//     Ctrl + Alt + c > save and comfilr for C/C++
+
+// * 실행
+//     Ctrl + Alt + a > execute
+
+// * 백준 C++17
+//     - return 0;으로 종료
