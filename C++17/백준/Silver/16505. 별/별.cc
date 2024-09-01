@@ -21,7 +21,7 @@ void rStar(vec2& isStar, int x, int y, int depth, int N) {
         return;
     }
 
-    int len = 1 << (N - depth - 1);
+    int len = 1 << depth; 
     rStar(isStar, x, y, depth + 1, N);
     rStar(isStar, x, y + len, depth + 1, N);
     rStar(isStar, x + len, y, depth + 1, N);
