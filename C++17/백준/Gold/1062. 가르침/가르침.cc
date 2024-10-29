@@ -55,7 +55,6 @@ int main() {
         return 0;
     }
 
-    // 단어 입력받기
     words.resize(N);
     for (int i = 0; i < N; ++i) {
         cin >> words[i];
