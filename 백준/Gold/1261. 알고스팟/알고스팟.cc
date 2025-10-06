@@ -50,7 +50,7 @@ int main() {
                         visited[nr][nc] = 1;
                         dq.push_front({nr, nc, cost});
                     } else {
-                        dist[nr][nc] = min(dist[nr][nc], cost + 1);
+                        dist[nr][nc] = cost + 1;
                         visited[nr][nc] = 1;
                         dq.push_back({nr, nc, cost + 1});
                     }
@@ -64,7 +64,7 @@ int main() {
     //     }
     //     cout << endl;
     // }
-    cout<<dist[N][M];
+    cout << dist[N][M];
 
     return 0;
 }
