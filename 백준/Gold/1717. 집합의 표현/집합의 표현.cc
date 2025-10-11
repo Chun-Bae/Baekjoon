@@ -1,19 +1,17 @@
-#include <algorithm>
 #include <iostream>
 #include <vector>
 
 using namespace std;
 
-vector<int> parent;
-
-int find(int x) {
-    if (parent[x] == x) return x;
-    return parent[x] = find(parent[x]);
+int find(int k, vector<int>& parent) {
+    if (parent[k] == k) return k;
+    parent[k] = find(parent[k], parent);
+    return parent[k];
 }
 
-void union_set(int a, int b) {
-    a = find(a);
-    b = find(b);
+void union_set(int a, int b, vector<int>& parent) {
+    a = find(a, parent);
+    b = find(b, parent);
     if (a != b) parent[b] = a;
 }
 
@@ -22,27 +20,19 @@ int main() {
     cin.tie(nullptr);
     int n, m;
     cin >> n >> m;
-
-    parent.resize(n + 1);
+    vector<int> parent(n + 1);
     for (int i = 0; i <= n; i++)
         parent[i] = i;
 
     for (int i = 0; i < m; i++) {
-        int mode, a, b;
-        cin >> mode >> a >> b;
-
-        switch (mode) {
-            case 0:
-                union_set(a, b);
-                break;
-            case 1:
-                if (find(a) != find(b))
-                    cout << "NO\n";
-                else
-                    cout << "YES\n";
-                break;
+        int s, a, b;
+        cin >> s >> a >> b;
+        if (s == 0) {
+            union_set(a, b, parent);
+        } else {
+            find(a, parent) != find(b, parent) ? cout << "NO" : cout << "YES";
+            cout << "\n";
         }
     }
-
     return 0;
 }
