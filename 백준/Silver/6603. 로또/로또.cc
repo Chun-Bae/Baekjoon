@@ -1,28 +1,31 @@
 #include <algorithm>
 #include <iostream>
-#include <sstream>
-#include <string>
 #include <vector>
-#define MAX 6
+
+const int MAX_DEPTH = 6;
+
 using namespace std;
 
+int k;
 vector<int> arr;
 vector<int> store;
 vector<bool> visited;
 
-int k;
-
 void bt(int depth) {
-    if (depth == MAX) {
-        for (auto n : store) {
-            cout << n << " ";
+    if (depth == MAX_DEPTH) {
+        for (int n : store) {
+            cout << n << ' ';
         }
-        cout<<endl;
+        cout << '\n';
         return;
     }
+
     for (int i = 0; i < k; i++) {
-        if (store[depth - 1] > arr[i]) continue;
-        if (visited[i] == false) {
+        if (depth > 0)
+            if (store[depth - 1] > arr[i])
+                continue;
+
+        if (!visited[i]) {
             store[depth] = arr[i];
             visited[i] = true;
             bt(depth + 1);
@@ -35,16 +38,17 @@ int main() {
     while (1) {
         cin >> k;
         if (k == 0) break;
-
         arr.resize(k);
-        store.resize(MAX);
+        store.resize(MAX_DEPTH);
         visited.resize(k, false);
+
         for (int i = 0; i < k; i++)
             cin >> arr[i];
 
         sort(arr.begin(), arr.end());
         bt(0);
-        cout << endl;
+        cout << '\n';
     }
+
     return 0;
 }
