@@ -1,29 +1,49 @@
-#include <deque>
-#include <iostream>
+#define _CRT_SECURE_NO_WARNINGS
+#define TRUE 1
+#define FALSE 0
+#define MAX_QUEUE_SIZE 500000
+#include <stdio.h>
 
-using namespace std;
+typedef int element;
 
-typedef long long ll;
+typedef struct {
+    int front;
+    int rear;
+    element data[MAX_QUEUE_SIZE];
 
-void init() {
-    cin.tie(NULL);
-    cout.tie(NULL);
-    ios::sync_with_stdio(false);
+}QueueType;
+
+void init_queue (QueueType *q){
+    q->front = 0;
+    q->rear = 0;
+}
+
+void enqueue(QueueType* q, element item) {
+    q->rear = (q->rear + 1) % MAX_QUEUE_SIZE;
+    q->data[q->rear] = item;
+}
+
+element dequeue(QueueType* q) {
+    q->front = (q->front + 1) % MAX_QUEUE_SIZE;
+    return q->data[q->front];
 }
 
 int main() {
-    init();
-    int n;
-    cin >> n;
-    deque<int> dq(n);
-    for (int i = 0; i < n; i++) dq[i] = i + 1;
-
-    while (!dq.empty()) {
-        if (dq.size() == 1) cout << dq.front();
-        dq.pop_front();
-        dq.push_back(dq.front());
-        dq.pop_front();
+    QueueType q;
+    QueueType* p = &q;
+    init_queue(&q);
+    int N;
+    scanf("%d", &N);
+    for (int i = 0; i < N; i++) {
+        enqueue(&q, i + 1);
+    }
+    for (int i = 0; i < N-1; i++) {
+        dequeue(&q);
+        enqueue(&q, dequeue(&q));
     }
 
+    printf("%d", p->data[p->rear]);
+
     return 0;
+
 }
